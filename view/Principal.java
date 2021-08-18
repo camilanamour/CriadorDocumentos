@@ -29,7 +29,7 @@ public class Principal {
 		gerar.inserirCabecalho();
 		gerar.inserirTitulo();
 		gerar.inserirParagrafo();
-		gerar.inserirImagens("imagem.jpg");  		//Path imagem.
+		gerar.inserirImagens("imagem.jpg"); //Path imagem.
 		gerar.inserirRodape();
 		gerar.inserirTabela();
 		gerar.gerarArquivo();
