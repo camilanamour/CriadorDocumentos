@@ -28,7 +28,7 @@ public class LerDocumento {
 	 * HWPFDocument documento = new HWPFDocument(fileCarregado);
 	 * WordExtractor extrator = new WordExtractor(documento);
 	 * String[] dadosArquivo = extrator.getParagraphText();	--> paga parágrafos
-	 * String texto = extrator.getText();					--> pega tudo
+	 * String texto = extrator.getText();			--> pega tudo
 	 * 
 	 */
 
@@ -37,13 +37,13 @@ public class LerDocumento {
 		documento = new XWPFDocument(OPCPackage.open(file));
 	}
 
-	// TEXTO COMPLETO - EXTRATOR.
+//	TEXTO COMPLETO - EXTRATOR.
 	public void leituraTextoCompleto() throws Exception {
 		extrator = new XWPFWordExtractor(documento);
 		System.out.println(extrator.getText());
 	}
 
-	// CABEÇALHO E RODAPÉS - getDefaultHeader(); getDefaultFooter();
+//	CABEÇALHO E RODAPÉS - getDefaultHeader(); getDefaultFooter();
 	public void leituraCabecalhoRodape() {
 		XWPFHeaderFooterPolicy politica = new XWPFHeaderFooterPolicy(documento);
 
@@ -57,7 +57,7 @@ public class LerDocumento {
 		}
 	}
 
-	// PARÁGRAFOS - getParagraphs();
+//	PARÁGRAFOS - getParagraphs();
 	public void leituraParagrafos() {
 		List<XWPFParagraph> paragrafos = documento.getParagraphs();
 
@@ -73,17 +73,17 @@ public class LerDocumento {
 		}
 	}
 
-	// TABELAS - XWPFTable
+//	TABELAS - XWPFTable.
 	public void leituraTabelas() {
 		Iterator<IBodyElement> iterator = documento.getBodyElementsIterator(); 	// Pegar os elementos do corpo do texto
 		
 		// (1) Achar a tabela...
-		while (iterator.hasNext()) { 										   	// Tem próximo?!
-			IBodyElement elemento = (IBodyElement) iterator.next(); 			// Caminha;
+		while (iterator.hasNext()) { 							// Tem próximo?!
+			IBodyElement elemento = (IBodyElement) iterator.next(); 		// Caminha;
 			if ("TABLE".equalsIgnoreCase(elemento.getElementType().name())) {	// Nome do tipo do elemento é "TABLE"?
 				List<XWPFTable> listaTabela = elemento.getBody().getTables();	// Pega a tabela.
 				
-				// (2) Tratamento com a tabela
+				// (2) Tratamento com a tabela...
 				for (XWPFTable tabela : listaTabela) {
 					System.out.println("Número total de linhas:" + tabela.getNumberOfRows());
 					int linhasTotal = tabela.getRows().size();
@@ -98,12 +98,12 @@ public class LerDocumento {
 		}
 	}
 
-	// IMAGENS - XWPFPictureDatas
+//	IMAGENS - XWPFPictureDatas
 	public void leituraImagem() {
 		List<XWPFPictureData> pic = documento.getAllPictures(); // Todas as imagens do arquivo
-		if (!pic.isEmpty()) {									// Não está vazia?!
-			System.out.println(pic.get(0).getPictureType());    // O tipo de imagem interna do POI, 0 se o tipo de imagem desconhecido.
-			System.out.println(pic.get(0).getData());			// Obtém dados da imagem.
+		if (!pic.isEmpty()) {					// Não está vazia?!
+			System.out.println(pic.get(0).getPictureType());// O tipo de imagem interna do POI, 0 se o tipo de imagem desconhecido.
+			System.out.println(pic.get(0).getData());	// Obtém dados da imagem.
 			// Dimension imgSize = getImageDimension(new ByteArrayInputStream(data.getData()), data.getPictureType());
 		}
 	}

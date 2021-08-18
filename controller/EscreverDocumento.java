@@ -33,13 +33,13 @@ public class EscreverDocumento {
 	
 //	CRIAR DOCUMENTO
 	public EscreverDocumento(File arquivo) throws FileNotFoundException{
-		this.documento = new XWPFDocument(); 					// (1) Cria documento em branco.
-		this.file = new FileOutputStream(arquivo); 				// (2) Criar arquivo de escrita.
+		this.documento = new XWPFDocument(); 			// (1) Cria documento em branco.
+		this.file = new FileOutputStream(arquivo); 		// (2) Criar arquivo de escrita.
 		this.politica = new XWPFHeaderFooterPolicy(documento);  // (3) Verificar cabeçalho e rodapé
-	}															// (4) Inserir o texto.
-																// (5) Colocar o texto no documento. (GERAR ARQUIVO)
+	}								// (4) Inserir o texto.
+									// (5) Colocar o texto no documento. (GERAR ARQUIVO)
 	
-//  MUDAR A ORIENTAÇÃO
+//      MUDAR A ORIENTAÇÃO
 	public void mudarOrientacao(String orientacao){
 		CTDocument1 doc = documento.getDocument();
 	    CTBody corpo = doc.addNewBody();
@@ -47,10 +47,10 @@ public class EscreverDocumento {
 	    
 	    CTSectPr sessao = corpo.getSectPr();
 	    if(!sessao.isSetPgSz()) {
-	    	sessao.addNewPgSz(); 								// Adiciona nova página.
+	    	sessao.addNewPgSz(); // Adiciona nova página.
 	    }
 	    
-	    CTPageSz pagina = sessao.getPgSz();						// Pega a página. (A4 595x842)
+	    CTPageSz pagina = sessao.getPgSz();	// Pega a página. (A4 595x842)
 	    if(orientacao.equalsIgnoreCase("paisagem")){
 	    	pagina.setOrient(STPageOrientation.LANDSCAPE);
 	    	pagina.setW(BigInteger.valueOf(842 * 20));
@@ -79,34 +79,34 @@ public class EscreverDocumento {
 	
 //	TÍTULO
 	public void inserirTitulo(){
-		XWPFParagraph titulo1 = documento.createParagraph();		//  Cria págrafo em branco.
-		titulo1.setAlignment(ParagraphAlignment.CENTER);			// -> alinhamento no centro;
-		XWPFRun titulo = titulo1.createRun();						// Criar o título do texto.
+		XWPFParagraph titulo1 = documento.createParagraph();	//  Cria págrafo em branco.
+		titulo1.setAlignment(ParagraphAlignment.CENTER);	// -> alinhamento no centro;
+		XWPFRun titulo = titulo1.createRun();			// Criar o título do texto.
 		this.EstiloTituloRun(titulo, "Título", "Showcard Gothic", "A9A9A9", 18);// Colocar estilo.
 	}
 	
 	private void EstiloTituloRun(XWPFRun run, String texto, String fonte, String color, int tamanho){
-		run.setBold(true);			// Negrito;
+		run.setBold(true);		// Negrito;
 		run.setItalic(true);    	// Itálico;
 		run.setText(texto);     	// Escrevo o texto;
 		run.setFontFamily(fonte);	// Tipo de fonte;
 		run.setFontSize(tamanho); 	// Tamanho da fonte;
 		run.setColor(color); 		// Atribuir cor;
 		run.setTextPosition(10);	// Espaçamento inferior;
-		run.addBreak(); 			// Quebra linha.
+		run.addBreak(); 		// Quebra linha.
 	}
 	
 //	PARÁGRAFO
 	public void inserirParagrafo(){
 		XWPFParagraph paragrafo = documento.createParagraph(); 	// Criar parágrafo em branco.
-		paragrafo.setAlignment(ParagraphAlignment.BOTH); 		// -> alinhamento justificado.
-		XWPFRun corpoTexto = paragrafo.createRun();		        // Alimenta o documento com um paragrafo
+		paragrafo.setAlignment(ParagraphAlignment.BOTH); 	// -> alinhamento justificado.
+		XWPFRun corpoTexto = paragrafo.createRun();		// Alimenta o documento com um paragrafo
 		
 		corpoTexto.setFontFamily("Arial");
 		corpoTexto.setFontSize(12);
 		
-		corpoTexto.addTab(); 								  	// -> adicionar espaçamento <tab>.
-		corpoTexto.setText("Escrevendo um parágrafo...");		// --> USAR BUFFERSTRING coverte para STRING!
+		corpoTexto.addTab(); 					// -> adicionar espaçamento <tab>.
+		corpoTexto.setText("Escrevendo um parágrafo...");	// -> USAR BUFFERSTRING converte para STRING!
 	}
 	
 //	IMAGENS	
@@ -123,7 +123,7 @@ public class EscreverDocumento {
 		
 	}
 	
-//  RODAPÉ
+//      RODAPÉ
 	public void inserirRodape(){
 		XWPFFooter footer = politica.createFooter(XWPFHeaderFooterPolicy.DEFAULT);
 		XWPFParagraph paragrafo = footer.createParagraph();
@@ -148,13 +148,13 @@ public class EscreverDocumento {
 		linha1.getCell(1).setText("linha 1, coluna1");
 	}
 	
-//  GERAR O ARQUIVO.
+//      GERAR O ARQUIVO.
 	public void gerarArquivo() throws IOException{	
 		documento.write(file);							
 		file.close();
 	}	
 	
-//  ABRIR O ARQUIVO	
+//      ABRIR O ARQUIVO	
 	public void abrirArquivo(File arq) throws IOException{
 		if(arq.exists() && arq.isFile()){
 			Desktop desktop = Desktop.getDesktop();
